@@ -1,28 +1,28 @@
 /* open-sans-regular - latin */
 @font-face {
   font-display: swap;
-  font-family: 'Open Sans';
+  font-family: "Open Sans";
   font-style: normal;
   font-weight: 400;
-  src: url('./assets/fonts/open-sans/open-sans-v40-latin-regular.woff2') format('woff2');
+  src: url("./assets/fonts/open-sans/open-sans-v40-latin-regular.woff2") format("woff2");
 }
 
 /* open-sans-500 - latin */
 @font-face {
   font-display: swap;
-  font-family: 'Open Sans';
+  font-family: "Open Sans";
   font-style: normal;
   font-weight: 500;
-  src: url('./assets/fonts/open-sans/open-sans-v40-latin-500.woff2') format('woff2');
+  src: url("./assets/fonts/open-sans/open-sans-v40-latin-500.woff2") format("woff2");
 }
 
 /* open-sans-700 - latin */
 @font-face {
   font-display: swap;
-  font-family: 'Open Sans';
+  font-family: "Open Sans";
   font-style: normal;
   font-weight: 700;
-  src: url('./assets/fonts/open-sans/open-sans-v40-latin-700.woff2') format('woff2');
+  src: url("./assets/fonts/open-sans/open-sans-v40-latin-700.woff2") format("woff2");
 }
 
 :root {
@@ -31,9 +31,10 @@
   --color-background-secondary: hsl(0, 0%, 97%);
   --color-foreground-primary: hsl(234, 50%, 4%);
 
-  --color-card-background-primary: hsl(0, 0%, 100%);
-  --color-card-background-secondary: hsl(0, 0%, 99%);
-
+  --color-book-background-primary: hsl(0, 0%, 100%);
+  --color-book-background-secondary: hsl(0, 0%, 99%);
+  --color-book-border: hsl(240, 3%, 90%);
+  --color-book-border-hover: hsl(240, 3%, 50%);
   --color-book-status-button-border: hsl(0, 0%, 90%);
   --color-book-status-button-border-hover: hsl(234, 50%, 4%);
 
@@ -42,14 +43,15 @@
   --color-modal-close-button-background: hsla(0, 0%, 79%, 0.308);
 
   --color-form-input-background: hsl(0, 0%, 97%);
-  --color-form-input-border: hsl(234, 50%, 4%);
+  --color-form-input-border: hsl(240, 3%, 90%);
+  --color-form-input-border-hover: hsl(240, 3%, 70%);
+  --color-form-input-border-focus: hsl(234, 50%, 4%);
   --color-form-checkbox-border: hsl(0, 0%, 97%);
   --color-form-button-background: hsl(234, 50%, 4%);
-  --color-form-button-background-hover: hsl(234, 50%, 5%);
   --color-form-button-foreground: hsl(0, 0%, 90%);
 
   /* Typography */
-  --font-main: 'Open Sans', sans-serif;
+  --font-main: "Open Sans", sans-serif;
 
   --font-weight-regular: 400;
   --font-weight-medium: 500;
@@ -85,16 +87,29 @@ body.modal-open {
   overflow: hidden;
 }
 
-img, picture, video, canvas, svg {
+img,
+picture,
+video,
+canvas,
+svg {
   display: block;
   max-width: 100%;
 }
 
-input, button, textarea, select {
+input,
+button,
+textarea,
+select {
   font: inherit;
 }
 
-p, h1, h2, h3, h4, h5, h6 {
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   overflow-wrap: break-word;
 }
 
@@ -102,7 +117,12 @@ p {
   text-wrap: pretty;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   text-wrap: balance;
 }
 
@@ -115,7 +135,7 @@ h1, h2, h3, h4, h5, h6 {
   min-height: 100vh;
   padding: 2rem;
   background-color: var(--color-background-secondary);
-  border-radius: 20px;
+  border-radius: 40px;
 
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -124,21 +144,21 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .book-container__book {
-  background-color: var(--color-card-background-primary);
+  background-color: var(--color-book-background-primary);
+  border: 1px solid var(--color-book-border);
   border-radius: 8px;
-  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.05);
-  -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.05);
-  -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.05);
-  transition: box-shadow 200ms;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.05);
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.05);
+  transition: border-color 200ms, transform 200ms;
 
   display: grid;
   grid-template-rows: 1fr 4fr 2fr;
 }
 
 .book-container__book:hover {
-  box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.15);
-  -webkit-box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.15);
-  -moz-box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.15);
+  transform: translateY(-0.6rem);
+  border-color: var(--color-book-border-hover);
 }
 
 .book-container__book-remove-container {
@@ -228,10 +248,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .book-container__add-book {
-  background-color: var(--color-card-background-secondary);
+  background-color: var(--color-book-background-secondary);
+  border: 1px solid var(--color-book-border);
   border-radius: 8px;
   cursor: pointer;
-  transition: background-color 200ms, box-shadow 200ms;
+  transition: background-color 200ms, border-color 200ms;
 
   display: grid;
   place-content: center;
@@ -246,10 +267,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .book-container__add-book:hover {
-  background-color: var(--color-card-background-primary);
-  box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.15);
-  -webkit-box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.15);
-  -moz-box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.15);
+  background-color: var(--color-book-background-primary);
+  border-color: var(--color-book-border-hover);
 }
 
 .book-container__add-book:hover svg {
@@ -311,7 +330,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .book-form__input-container {
   margin-bottom: 1rem;
-  
+
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
@@ -319,11 +338,12 @@ h1, h2, h3, h4, h5, h6 {
 
 .book-form__input-container label {
   color: hsla(234, 50%, 4%, 0.6);
-  transition: color .3s cubic-bezier(.25,.01,.25,1) 0s;
+  transition: color 0.3s cubic-bezier(0.25, 0.01, 0.25, 1) 0s;
 }
 
-.book-form__input-container input[type=number] {
+.book-form__input-container input[type="number"] {
   -moz-appearance: textfield;
+  appearance: textfield;
 }
 
 .book-form__input-container input::-webkit-outer-spin-button,
@@ -336,15 +356,18 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--color-foreground-primary);
   padding: 0.6rem 0.8rem;
   background-color: var(--color-form-input-background);
-  border: 2px solid transparent;
+  border: 1px solid var(--color-form-input-border);
   border-radius: 8px;
   outline: none;
-  transition: border-color .3s cubic-bezier(.25,.01,.25,1) 0s;
+  transition: border-color 0.3s cubic-bezier(0.25, 0.01, 0.25, 1) 0s;
 }
 
-.book-form__input-container input:hover,
+.book-form__input-container input:hover {
+  border-color: var(--color-form-input-border-hover);
+}
+
 .book-form__input-container input:focus {
-  border-color: var(--color-input-border);
+  border-color: var(--color-form-input-border-focus);
 }
 
 .book-form__input-container:hover label {
@@ -364,10 +387,6 @@ h1, h2, h3, h4, h5, h6 {
   border: none;
   border-radius: 8px;
   cursor: pointer;
-}
-
-.book-form__submit-button:hover {
-  background-color: var(--color-form-button-background-hover);
 }
 
 .book-form__checkbox-container {
